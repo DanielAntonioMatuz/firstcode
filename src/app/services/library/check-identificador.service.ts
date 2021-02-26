@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 
 @Injectable({
   providedIn: 'root'
@@ -7,7 +7,8 @@ export class CheckIdentificadorService {
 
   public resultEvaluation = false;
 
-  constructor() { }
+  constructor() {
+  }
 
   validarIdentificador(value) {
     const regex = /[^A-Za-z0-9.@_-~#]|[0-9]|[.]|[#]|[@]|[\}]|['|']|[~]|[\{]|["]|[`]+/gm;
@@ -21,12 +22,11 @@ export class CheckIdentificadorService {
       }
 
       m.forEach((match, groupIndex) => {
-        console.log(`Found match, group ${groupIndex}: ${match}`);
         this.resultEvaluation = true;
       });
     }
 
-    if (value.charAt(0) == "\"") {
+    if (value.charAt(0) == '"') {
       this.resultEvaluation = true;
     }
 
@@ -47,11 +47,10 @@ export class CheckIdentificadorService {
       }
 
       m.forEach((match, groupIndex) => {
-        console.log(`Found match, group ${groupIndex}: ${match}`);
-        resultado = true
+        resultado = true;
       });
     }
-    return resultado
+    return resultado;
   }
 
 
@@ -67,7 +66,6 @@ export class CheckIdentificadorService {
       }
 
       m.forEach((match, groupIndex) => {
-        console.log(`Found match, group ${groupIndex}: ${match}`);
 
         if (!this.verificadorIlegales(m)) {
           evaluation = true;
@@ -89,7 +87,6 @@ export class CheckIdentificadorService {
       }
 
       m2.forEach((match, groupIndex) => {
-        console.log(`Found match, group ${groupIndex}: ${match}`);
         evaluation = true;
       });
     }

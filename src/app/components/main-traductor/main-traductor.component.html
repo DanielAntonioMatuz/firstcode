@@ -1,1 +1,85 @@
-<p>main-traductor works!</p>
+<div style="position: absolute; z-index: 1000; width: 100%; height: 650px; background-color: white; border-radius: 45px" class="uk-animation-slide-bottom-small">
+  <div class="mx-auto" style="text-align: center">
+    <h1 style="text-align: center; margin-top: 25px">Documentación | U P W I N D</h1>
+  </div>
+
+  <div class="mx-auto w-75" style="text-align: center; margin-top: 50px">
+    <div class="row" style="margin-bottom: 50px">
+
+      <div class="col-4">
+        <h4 style="font-weight: 400">Funciones</h4>
+        <div class="row" style="margin-top: 30px">
+
+          <div class="col-4" *ngFor="let i of funcionesUpwind">
+            <div style="background-color: #6b52e6; border-radius: 15px; padding: 3px; width: 75%; margin-bottom: 5px">
+              <h5 style="color: white;">{{i}}</h5>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="col-4">
+        <h4 style="font-weight: 400">Tipos de datos</h4>
+        <div class="row" style="margin-top: 30px">
+
+          <div class="col-4" *ngFor="let i of tipoDatoUpwind">
+            <div style="background-color: #EC6A5F; border-radius: 15px; padding: 3px; width: 75%; margin-bottom: 5px">
+              <h5 style="color: white;">{{i}}</h5>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-4">
+        <h4 style="font-weight: 400">Estructura de control</h4>
+        <div class="row" style="margin-top: 30px">
+
+          <div class="col-4" *ngFor="let i of estructurasControlUpwind">
+            <div style="background-color: #64CC57; border-radius: 15px; padding: 3px; width: 75%; margin-bottom: 5px">
+              <h5 style="color: white;">{{i}}</h5>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="row">
+
+      <div class="col-4">
+        <h4 style="font-weight: 400">Función E/S</h4>
+        <div class="row" style="margin-top: 30px">
+
+          <div class="col-6" *ngFor="let i of funcionESUpwind">
+            <div style="background-color: #000000; border-radius: 15px; padding: 3px; width: 75%; margin-bottom: 5px">
+              <h6 style="color: white;">{{i}}</h6>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-4">
+        <h4 style="font-weight: 400">¿Cómo iniciar un programa?</h4>
+        <p style="text-align: justify">Para iniciar un programa en el lenguaje UPWIND, toma el siguiente ejemplo:</p>
+        <textarea disabled style="width: 100%; height: 100px; background-color: transparent!important;
+         border: none!important; font-weight: bolder">
+          body ( args ) {{'{'}}
+            // Tus instrucciones o lógica
+          }
+        </textarea>
+      </div>
+
+      <div class="col-4">
+        <h4 style="font-weight: 400">Reglas para variables</h4>
+        <p style="text-align: justify">Crear una variable en UPWIND, tiene ciertas reglas a seguir, un poco distinto a los diferentes lenguajes
+         de programación, para ello, primero(1), deberemos elegir un tipo de dato, una vez elegido, el nombre de la
+          variable podrá tener el nombre que desee, únicamente no combine números (no permitido), simbolos a excepción
+          del guión bajo (_) y espacio entre ellos.
+        </p>
+
+      </div>
+
+    </div>
+  </div>
+</div>
