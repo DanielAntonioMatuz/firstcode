@@ -10,6 +10,11 @@ import {LibraryWordReservedService} from './services/library/library-word-reserv
 import {LibrarySymbolsService} from './services/library/library-symbols.service';
 import {CheckIdentificadorService} from './services/library/check-identificador.service';
 import {FormsModule} from '@angular/forms';
+import {SyntacticCoreService} from './services/library/syntactic-core.service';
+import {ControllerPilaService} from './services/ControllerSyn/ControllerPila.service';
+import {PilaService} from './services/ControllerSyn/Pila.service';
+import {NodoService} from './services/ControllerSyn/Nodo.service';
+import {ControllerMSService} from './services/ControllerSyn/ControllerMS.service';
 
 @NgModule({
   declarations: [
@@ -21,7 +26,9 @@ import {FormsModule} from '@angular/forms';
     AppRoutingModule,
     FormsModule
   ],
-  providers: [CoreCompilerService, LibraryWordReservedService, LibrarySymbolsService, CheckIdentificadorService ],
+  providers: [CoreCompilerService, LibraryWordReservedService, LibrarySymbolsService,
+    CheckIdentificadorService, SyntacticCoreService, ControllerPilaService, PilaService,
+  NodoService, ControllerMSService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

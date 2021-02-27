@@ -4,6 +4,8 @@ import {LibrarySymbolsService} from './services/library/library-symbols.service'
 import {CheckIdentificadorService} from './services/library/check-identificador.service';
 import {Meta, Title} from '@angular/platform-browser';
 import {stringify} from '@angular/compiler/src/util';
+import {ControllerPilaService} from './services/ControllerSyn/ControllerPila.service';
+import {ControllerMSService} from './services/ControllerSyn/ControllerMS.service';
 
 
 @Component({
@@ -35,6 +37,16 @@ export class AppComponent {
   public opt4 = true;
   public docs = false;
   public funcionExperimental = true ;
+  public count = 0;
+  public groupSint = []
+  public groupSintDisplay = []
+  public resultAL = false;
+  public sintaxisGroup = [];
+  public sintaxisOpen = false;
+
+  // Almacenamiento de datos prioritarios
+
+  public arrayVar = [];
 
 
   @ViewChild('opcionLenguaje') opcionLenguaje: string;
@@ -44,7 +56,9 @@ export class AppComponent {
     private _librarySymbols: LibrarySymbolsService,
     private _evaluationIdentificador: CheckIdentificadorService,
     private meta: Meta,
-    private title: Title
+    private title: Title,
+    private _AL: ControllerPilaService,
+    private _CMS: ControllerMSService
   ) {
 
     this.arrayColor = ['#ec6a5f', '#5fecaa', '#52e69c', '#000000', '#EC5F95', '#6b52e6', '#64CC57'];
@@ -137,6 +151,8 @@ export class AppComponent {
 
     this.dataProcessDev = [];
     this.erroresSystem = [];
+    this.sintaxisGroup = [];
+    this.arrayVar = [];
 
 
     this.dataLexicoCorrect = '';
@@ -166,6 +182,7 @@ export class AppComponent {
     // Librerias de UPWIND
 
     if (this.seleccionLenguaje == 1) {
+
       for (let i = 0; i < datosProcesados.length; i++) {
 
         //Bloque de Analizador Léxico
@@ -288,6 +305,7 @@ export class AppComponent {
           if (FirstData != '"' && datosProcesados[i].charAt(0) != '_') {
             this.dataInputTraslate += 'Identificador' + '\n';
             this.dataProcessDev[i] = {'data': datosProcesados[i], 'token': 'Identificador', 'id': 'IDE'};
+            this.arrayVar.push(datosProcesados[i]);
           } else {
             this.dataInputTraslate += 'Error - no valido' + '\n';
             this.dataProcessDev[i] = {'data': datosProcesados[i], 'token': 'Error - no valido', 'id': 'KNW'};
@@ -298,9 +316,127 @@ export class AppComponent {
         // Bloque de Analizador SINTACTICO
 
 
+          if (datosProcesados.length == 4) {
+            this.agruparSintactico(datosProcesados);
+          }
+
+
+      }
+
+      // SECCIÓN DE ANALIZADOR SINTÁCTICO
+
+      //Bloque para analizar la sintaxis de llaves, corchetes y parentesis
+      if (!this._AL.validarExpresion(value)) {
+        this.erroresSystem.push({
+          'data': 'Linea: (' + (i + 1) + ')' + ' Error de symbolo de cierre: ' + '( || ) || { || } || [ || ]',
+          'token': 'No match Symbols ',
+          'id': 'LL_KEY',
+          'output:': ' en al línea: ' + i
+        });
+        this.errorLexico = true;
+      }
+
+      let arrayData = value.split("\n");
+
+
+
+      for (let index = 0; index < arrayData.length; index++) {
+        if (this._CMS.validarVariablesNoInicializadas(arrayData[index], this.arrayVar)) {
+          console.log("VARIABLE OK");
+          this.sintaxisOpen = true;
+          this.sintaxisGroup.push({
+            'data': arrayData[index],
+            'token': 'VARN',
+          });
+          this.dataProcessDev = [];
+        } else {
+          if(this._CMS.validarVariablesInicializadas(arrayData[index], this.arrayVar)) {
+            this.sintaxisOpen = true;
+            this.sintaxisGroup.push({
+              'data': arrayData[index],
+              'token': 'VARI',
+            });
+            this.dataProcessDev = [];
+          } else {
+            if (this._CMS.validarDisplayView(arrayData[index], this.arrayVar)) {
+              this.sintaxisOpen = true;
+              this.sintaxisGroup.push({
+                'data': arrayData[index],
+                'token': 'DVW',
+              });
+              this.dataProcessDev = [];
+            } else {
+              if (this._CMS.validarMult(arrayData[index], this.arrayVar)) {
+                this.sintaxisOpen = true;
+                this.sintaxisGroup.push({
+                  'data': arrayData[index],
+                  'token': 'MULT',
+                });
+                this.dataProcessDev = [];
+              } else {
+                if (this._CMS.validarDisplayEnter(arrayData[index], this.arrayVar)) {
+                  this.sintaxisOpen = true;
+                  this.sintaxisGroup.push({
+                    'data': arrayData[index],
+                    'token': 'DSPE',
+                  });
+                  this.dataProcessDev = [];
+                } else {
+                  if (this._CMS.validarRest(arrayData[index], this.arrayVar)) {
+                    this.sintaxisOpen = true;
+                    this.sintaxisGroup.push({
+                      'data': arrayData[index],
+                      'token': 'REST',
+                    });
+                    this.dataProcessDev = [];
+                  } else {
+                    if (this._CMS.validarSum(arrayData[index], this.arrayVar)) {
+                      this.sintaxisOpen = true;
+                      this.sintaxisGroup.push({
+                        'data': arrayData[index],
+                        'token': 'SUM',
+                      });
+                      this.dataProcessDev = [];
+                    } else {
+                      if (this._CMS.validarFor(arrayData[index], this.arrayVar)) {
+                        this.sintaxisOpen = true;
+                        this.sintaxisGroup.push({
+                          'data': arrayData[index],
+                          'token': 'FOR',
+                        });
+                        this.dataProcessDev = [];
+                      } else {
+                        if (this._CMS.validarIf(arrayData[index], this.arrayVar)) {
+                          this.sintaxisOpen = true;
+                          this.sintaxisGroup.push({
+                            'data': arrayData[index],
+                            'token': 'IF',
+                          });
+                          this.dataProcessDev = [];
+                        } else {
+                          if (arrayData[index] != '{' && arrayData[index] != 'LL_KEY' && arrayData[index] != null && arrayData[index] != '' && arrayData[index] != '}' && arrayData[index] != ' ' && arrayData[index] != undefined) {
+                            console.log("ERR -----> " + arrayData[index]);
+                            this.erroresSystem.push({
+                              'data': 'Linea: (' + (i + 1) + ')' + ' No coincide con ninguna expresion: ' + 'ERR KEY_NO_MATCH: ' + arrayData[index],
+                              'token': arrayData[index],
+                              'id': 'ERR_SYNTACTIC',
+                              'output:': ' en al línea: ' + i
+                            });
+                            this.errorLexico = true;
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
       }
 
     }
+
 
     //Librerias de JAVA
     if (this.seleccionLenguaje == 2) {
@@ -569,6 +705,10 @@ export class AppComponent {
   }
 
   // SECCION DE CONFIGURACIONES:
+
+  agruparSintactico(value) {
+    this.groupSintDisplay.push(value)
+  }
 
   sugerenciaPalabras(value) {
     this.opt1 = !this.opt1;

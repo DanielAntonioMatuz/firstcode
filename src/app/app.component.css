@@ -249,4 +249,37 @@ body {
   color: white;
   font-weight: 400; }
 
+.container-sintactic {
+  width: 97%;
+  background-color: #6b52e6;
+  border-radius: 10px;
+  min-height: 70px;
+  margin-top: 10px; }
+
+.item-sintactic {
+  width: 100%;
+  background-color: #e6528b;
+  border-top-right-radius: 10px;
+  border-top-left-radius: 10px;
+  min-height: 40px; }
+
+.info-container-sintactic {
+  width: 100%;
+  background-color: #6b52e6;
+  border-bottom-right-radius: 10px;
+  border-bottom-left-radius: 10px;
+  min-height: 30px; }
+
+.info-sintactic {
+  background-color: #13a039;
+  width: 250px;
+  color: white;
+  margin-left: 5px;
+  border-radius: 5px;
+  padding-left: 3px;
+  font-size: 15px; }
+
+.fl-l {
+  float: left; }
+
 /*# sourceMappingURL=app.component.css.map */
