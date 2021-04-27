@@ -78,8 +78,9 @@ export class LibrarySymbolsService {
       case '||':
         return 'Simbolo lógico';
       case '++':
+        return 'Simbolo unario aritmetico creciente';
       case '--':
-        return 'Simbolo unario aritmetico';
+        return 'Simbolo unario aritmetico decreciente';
       default:
         return 'No ha sido posible idetificarlo: ' + cadena;
     }

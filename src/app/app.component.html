@@ -9,6 +9,8 @@
 <body class="color-movil" style="height: 100vh; position: relative">
 <div class="display-none">
 
+  <!--<app-introduction></app-introduction>-->
+
   <!-- Just an image -->
   <nav class="navbar navbar-light bg-light" style="padding: 0px; border-bottom: 4px solid #52E69C;">
     <div style="margin-left: 135px">
@@ -17,7 +19,7 @@
       </a>
     </div>
     <div class="nav-cover">
-      <a  style="text-decoration: none!important;" (click)="docsOpen()">
+      <a style="text-decoration: none!important;" (click)="docsOpen()">
         <h4 style="margin-left: 35px; margin-top: 13px; color: white; font-weight: 400;" *ngIf="!docs">Docs</h4>
         <h2 style="margin-left: 35px; margin-top: 13px; color: white; font-weight: 400;" *ngIf="docs">X</h2>
       </a>
@@ -41,9 +43,9 @@
                   aria-label=".form-select-lg example">
             <option selected>Seleccionar</option>
             <option value="1">U P W I N D</option>
-            <option value="2">Java</option>
+<!--            <option value="2">Java</option>
             <option value="3">C++</option>
-            <option value="4">Español</option>
+            <option value="4">Español</option>-->
           </select>
         </div>
 
@@ -55,15 +57,11 @@
           <select (change)="seleccionLgTraducir($event.target.value)" class="form-select form-select-lg mb-3 select-t"
                   aria-label=".form-select-lg example">
             <option selected>Seleccionar</option>
-            <option value="1" *ngIf="seleccionLenguaje != 1 && seleccionLenguaje != 2 && seleccionLenguaje != 3"
-                    selected>
-              U P W I N D
+            <option value="2" *ngIf="seleccionLenguaje != 4">Java
             </option>
-            <option value="2" *ngIf="seleccionLenguaje != 1 && seleccionLenguaje != 2 && seleccionLenguaje != 3">Java
+            <option value="3" *ngIf="seleccionLenguaje != 4">C++
             </option>
-            <option value="3" *ngIf="seleccionLenguaje != 1 && seleccionLenguaje != 2 && seleccionLenguaje != 3">C++
-            </option>
-            <option value="4" *ngIf="seleccionLenguaje != 4" selected>Español</option>
+            <option value="4" *ngIf="seleccionLenguaje != 4">Español</option>
           </select>
         </div>
 
@@ -102,24 +100,29 @@
 
           <div class="uk-animation-slide-bottom-small"
                style="width: 100%; height: 100px; background-color: #645fec; margin-top: -100px; border-radius: 15px"
-               *ngIf="predictivoUpwind.length > 0 && opt1">
+               *ngIf="predictivoUpwind.length > 0 && opt1 && seleccionLenguajeTraduccion == 4">
             <div style="width: 100%; height: 25px; background-color: #000000; border-radius: 15px;">
               <h5 style="color: white; margin-left: 15px">Sugerencias: </h5>
             </div>
 
-            <div class="scroll-nav" style="width: 100%; height: 75px; text-align: center; margin-top: 15px; margin-left: -10px">
+            <div class="scroll-nav"
+                 style="width: 100%; height: 75px; text-align: center; margin-top: 15px; margin-left: -10px">
               <div class="row mx-auto" *ngIf="predictivoUpwind.length > 0">
                 <div class="col-3">
-                  <div style="color: white; margin-left: 10px; width: 100%" class="results-arg">{{predictivoUpwind[0]}}</div>
+                  <div style="color: white; margin-left: 10px; width: 100%"
+                       class="results-arg">{{predictivoUpwind[0]}}</div>
                 </div>
                 <div class="col-3" *ngIf="predictivoUpwind.length >= 2">
-                  <div style="color: white; margin-left: 10px; width: 100%" class="results-arg">{{predictivoUpwind[1]}}</div>
+                  <div style="color: white; margin-left: 10px; width: 100%"
+                       class="results-arg">{{predictivoUpwind[1]}}</div>
                 </div>
                 <div class="col-3" *ngIf="predictivoUpwind.length >= 3">
-                  <div style="color: white; margin-left: 10px; width: 100%" class="results-arg">{{predictivoUpwind[2]}}</div>
+                  <div style="color: white; margin-left: 10px; width: 100%"
+                       class="results-arg">{{predictivoUpwind[2]}}</div>
                 </div>
                 <div class="col-3" *ngIf="predictivoUpwind.length >= 4">
-                  <div style="color: white; margin-left: 10px; width: 100%" class="results-arg">{{predictivoUpwind[3]}}</div>
+                  <div style="color: white; margin-left: 10px; width: 100%"
+                       class="results-arg">{{predictivoUpwind[3]}}</div>
                 </div>
               </div>
             </div>
@@ -317,35 +320,78 @@
             </div>
 
 
-
             <!-- BLOQUE DE ANALIZADOR SINTACTICO -->
 
             <div *ngFor="let i of sintaxisGroup;">
-              <div  *ngIf="sintaxisOpen" class="row card-token"
-                    style=" margin-left: 10px; width: 93%!important; background-color: {{arrayColor[4]}}">
+
+              <div *ngIf="sintaxisOpen && i.token == 'BODY'" class="row card-token"
+                   style=" margin-left: 10px; width: 93%!important; background-color: {{arrayColor[3]}}">
                 <div style="width: 100%">
 
 
                   <div>
-                    <div  style="display:inline-block;">
-                      <p style="margin-left: 0px; padding: 5px 10px 10px 10px; height: 80%; border-radius: 10px; margin-right: 4px; background-color: {{arrayColor[6]}}">{{i.data}}</p>
+                    <div style="display:inline-block;">
+                      <p
+                        style="margin-left: 0px; padding: 5px 10px 10px 10px; height: 80%; border-radius: 10px; margin-right: 4px; background-color: {{arrayColor[6]}}">{{i.data}}
+                        <br> {{i.main}}</p>
                     </div>
                   </div>
 
 
+                  <div *ngFor="let i of sintaxisGroup;">
+                    <div *ngIf="sintaxisOpen && i.token != 'BODY' " class="row card-token"
+                         style="display: inline-block!important; margin-bottom: 10px; margin-left: 10px; width: 93%!important; background-color: {{arrayColor[i.color]}}">
+                      <div style="width: 100%">
+
+
+                        <div>
+                          <div style="display:inline-block;">
+                            <p
+                              style="margin-left: 0px; padding: 5px 10px 10px 10px; height: 80%; border-radius: 10px; margin-right: 4px; background-color: {{arrayColor[6]}}">{{i.data}}</p>
+
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="col-12 info-container-sintactic" style="text-align: center" *ngIf="seleccionLenguajeTraduccion == 4">
+                        <div>
+                          <p
+                            style="font-size: 18px; margin-bottom: 5px; text-align: left; border-radius: 5px; padding: 5px">
+                            Traducción: </p>
+                          <p class="info-sintactic"
+                             style="margin-top: 5px; margin-bottom: 5px!important; background-color: #e6528b!important;">{{i.traslate}}</p>
+                          <br>
+                          <div *ngIf="definitionsPanel">
+                            <p
+                              style="font-size: 18px; margin-bottom: 5px;  text-align: left; border-radius: 5px; padding: 5px">
+                              Definición de {{i.info}}: </p>
+                            <p class="info-sintactic"
+                               style="margin-top: 5px; margin-bottom: 5px!important;">{{i.definitions}}</p>
+                          </div>
+                          <br>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
 
                 </div>
-                <div class="col-12 info-container-sintactic" style="text-align: center">
-                  <div class="info-sintactic">
-                    <p style="margin-top: 5px; margin-bottom: 5px!important;">Variable declarado correctamente</p>
+                <div class="col-12 info-container-sintactic" style="text-align: center" *ngIf="seleccionLenguajeTraduccion == 4">
+                  <div>
+                    <p style="text-align: left">Traducción: </p>
+                    <p class="info-sintactic"
+                       style="margin-top: -10px; margin-bottom: 5px!important; padding: 7px">{{i.definitions}}</p>
                   </div>
                 </div>
               </div>
+
+
             </div>
 
           </div>
 
         </div>
+
 
         <!-- INCIA la Terminal de errores -->
 
@@ -370,6 +416,7 @@
     </div>
   </div>
 
+  <app-subnav *ngIf="notificationKey"></app-subnav>
 
   <!-- Bloque de desarrollo de creditos -->
   <a href="#" class="btn-flotante" data-bs-toggle="modal" data-bs-target="#exampleModal">configuración</a>
@@ -425,8 +472,14 @@
                 <label class="form-check-label" for="flexSwitchCheckChecked4">Habilitar terminal de errores</label>
               </div>
               <br>
+              <div class="form-check form-switch options">
+                <input (click)="panelDefiniciones($event.target.value)" class="form-check-input" type="checkbox"
+                       id="flexSwitchCheckChecked5" checked>
+                <label class="form-check-label" for="flexSwitchCheckChecked4">Habilitar panel de definicion</label>
+              </div>
               <hr>
             </div>
+
 
             <div class="mx-auto" style="text-align: center">
               <h2>Desarrollado por: </h2>
@@ -464,7 +517,7 @@
 
 
         <div class="modal-footer">
-          <h6 style="text-align: left!important">v2.4.8 release beta - Ing. Desarrollo de software | 2021</h6>
+          <h6 style="text-align: left!important">v3.0.0 release beta - Ing. Desarrollo de software - UP Chiapas | 2021</h6>
 
           <button type="button" class="btn btn-secondary primary-color" data-bs-dismiss="modal"
                   style="border: none!important">Aceptar

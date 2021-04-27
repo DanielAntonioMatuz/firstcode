@@ -54,7 +54,6 @@
 body {
   background-color: #F8F6F6!important;
   overflow-x: hidden;
-
 }
 
 .nav-cover {
@@ -225,7 +224,7 @@ body {
 
 .card-token {
   background-color: #000000;
-  width: 90%;
+  width: 95%;
   padding: 5px;
   border-radius: 15px;
   font-size: 22px;
@@ -323,12 +322,14 @@ body {
 
 .info-sintactic {
   background-color: #13a039;
-  width: 250px;
+  display: inline-block;
+  text-align: left!important;
   color: white;
   margin-left: 5px;
   border-radius: 5px;
   padding-left: 3px;
   font-size: 15px;
+  float: left;
 }
 
 .fl-l {

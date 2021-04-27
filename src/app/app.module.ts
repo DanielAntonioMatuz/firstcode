@@ -15,11 +15,16 @@ import {ControllerPilaService} from './services/ControllerSyn/ControllerPila.ser
 import {PilaService} from './services/ControllerSyn/Pila.service';
 import {NodoService} from './services/ControllerSyn/Nodo.service';
 import {ControllerMSService} from './services/ControllerSyn/ControllerMS.service';
+import { IntroductionComponent } from './components/introduction/introduction.component';
+import {LibraryDefinitionsService} from './services/library/library-definitions.service';
+import { SubnavComponent } from './components/subnav/subnav.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    MainTraductorComponent
+    MainTraductorComponent,
+    IntroductionComponent,
+    SubnavComponent
   ],
   imports: [
     BrowserModule,
@@ -28,7 +33,7 @@ import {ControllerMSService} from './services/ControllerSyn/ControllerMS.service
   ],
   providers: [CoreCompilerService, LibraryWordReservedService, LibrarySymbolsService,
     CheckIdentificadorService, SyntacticCoreService, ControllerPilaService, PilaService,
-  NodoService, ControllerMSService],
+  NodoService, ControllerMSService, LibraryDefinitionsService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
